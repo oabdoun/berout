@@ -29,20 +29,19 @@ object Berout {
           // compute shortest path
           val result = GraphTool.shortestPath(network, start, target)
 
-          // no route
           if (result.isEmpty) {
+            // no route
             println(s"Error: No route from ${start} to ${target}")
-            return
+          } else {
+            // format result to output
+            var total = 0
+            print(result.head.source)
+            for (e <- result) {
+              print(s" -> ${e.destination}")
+              total += e.weight
+            }
+            println(s": ${total}")
           }
-
-          // format result to output
-          var total = 0
-          print(result.head.source)
-          for (e <- result) {
-            print(s" -> ${e.destination}")
-            total += e.weight
-          }
-          println(s": ${total}")
         }
 
         case nearbyQuery(start, max) => {
