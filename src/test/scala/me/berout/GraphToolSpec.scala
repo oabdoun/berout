@@ -37,6 +37,28 @@ class GraphToolTest extends FunSpec {
           assert(Seq.empty[Edge].equals(GraphTool.shortestPath(sag, "D", "D")))
         }
       }
+
+      describe("for a simple cyclic graph") {
+        val scg = new Graph
+        val f1 = Edge("A", "B", 1)
+        val f2 = Edge("B", "A", 1)
+        val f3 = Edge("A", "C", 4)
+        val f4 = Edge("C", "A", 3)
+        val f5 = Edge("C", "C", 1)
+        val f6 = Edge("B", "C", 2)
+        val f7 = Edge("C", "D", 2)
+        scg.add(f1)
+        scg.add(f2)
+        scg.add(f3)
+        scg.add(f4)
+        scg.add(f5)
+        scg.add(f6)
+        scg.add(f7)
+
+        it("finds the shortest paths") {
+          assert(Seq(f1, f6, f7).equals(GraphTool.shortestPath(scg, "A", "D")))
+        }
+      }
     }
   }
 }
