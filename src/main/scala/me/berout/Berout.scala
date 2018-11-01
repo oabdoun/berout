@@ -5,6 +5,7 @@ import scala.io.StdIn
 object Berout {
 
   private val routeQuery = """route (\w+) -> (\w+)""".r
+  private val nearbyQuery = """nearby (\w+), (\d+)""".r
 
   def main(args: Array[String]): Unit = {
     // parse network spec
@@ -26,6 +27,12 @@ object Berout {
           // compute shortest path
           val result = GraphTool.shortestPath(network, start, target)
 
+          // no route
+          if (result.isEmpty) {
+            println(s"Error: No route from ${start} to ${target}")
+            return
+          }
+
           // format result to output
           var total = 0
           print(result.head.source)
@@ -34,6 +41,8 @@ object Berout {
             total += e.weight
           }
           println(s": ${total}")
+        }
+        case nearbyQuery(start, max) => {
         }
       }
     }

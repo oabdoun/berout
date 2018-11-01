@@ -1,0 +1,5 @@
+3
+A -> B: 10
+C -> D: 20
+D -> A: 30
+route Foo -> Bar
