@@ -3,7 +3,7 @@ package me.berout
 import org.scalatest._
 
 class GraphSpec extends FunSpec {
-  describe("An graph") {
+  describe("A graph") {
     val graph = new Graph
     val e1 = new Edge("Foo", "Bar", 2)
     val e2 = new Edge("Foo", "Baz", 4)
