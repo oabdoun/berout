@@ -17,7 +17,8 @@ object Berout {
       network.add(Edge(
         e._1.asInstanceOf[String],
         e._2.asInstanceOf[String],
-        e._3.asInstanceOf[Long].toInt))
+        e._3.asInstanceOf[Long].toInt
+      ))
     }
 
     // process queries

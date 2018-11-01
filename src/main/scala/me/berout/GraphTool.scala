@@ -5,7 +5,7 @@ import scala.collection.mutable.HashMap
 /** A path between vertices in a graph, including cost */
 case class Path(path: Seq[Edge], cost: Int) {}
 
-/** A collection of graph algorithm */
+/** A collection of graph algorithms */
 object GraphTool {
   private val emptyPath = new Path(Seq.empty, 0)
 

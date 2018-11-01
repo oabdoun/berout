@@ -9,7 +9,7 @@ case class Edge(source: String, destination: String, weight: Integer) {}
 class Graph {
   private val source2edges = new HashMap[String, Set[Edge]] with MultiMap[String, Edge]
 
-  /** Add an edge to the graph */
+  /** Adds an edge to the graph */
   def add(edge: Edge): Unit = {
     source2edges.addBinding(edge.source, edge)
   }
