@@ -11,14 +11,14 @@ object GraphTool {
 
   /** Finds the shortest path between 2 vertices of a graph */
   def shortestPath(graph: Graph, start: String, target: String): Seq[Edge] = {
-    val traversal = minTraversal(graph, start)
-    traversal.getOrElse(target, emptyPath).path
+    val spanTree = minSpanningTree(graph, start)
+    spanTree.getOrElse(target, emptyPath).path
   }
 
   /** Finds all the paths of a graph from a starting vertex whith a cost below a threshold */
   def selectPathsByMaxCost(graph: Graph, start: String, maxCost: Int): Set[Seq[Edge]] = {
-    val traversal = minTraversal(graph, start)
-    traversal.filterKeys(v => v != start)
+    val spanTree = minSpanningTree(graph, start)
+    spanTree.filterKeys(v => v != start)
     .values
     .filter(p => p.cost <= maxCost)
     .map(p => p.path)
@@ -26,7 +26,7 @@ object GraphTool {
   }
 
   /** Generates all the possible minimum cost paths of a graph from a starting vertex */
-  private def minTraversal(graph: Graph, start: String): Map[String, Path] = {
+  private def minSpanningTree(graph: Graph, start: String): Map[String, Path] = {
     val paths = HashMap(start -> new Path(Seq.empty, 0))
     var waypoints = List(start)
     while (!waypoints.isEmpty) {
