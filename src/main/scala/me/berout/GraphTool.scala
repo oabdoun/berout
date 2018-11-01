@@ -8,8 +8,21 @@ object GraphTool {
   private val emptyPath = new Path(Seq.empty, 0)
 
   def shortestPath(graph: Graph, start: String, target: String): Seq[Edge] = {
-    val costs = HashMap(start -> 0)
-    val paths: HashMap[String, Path] = HashMap(start -> new Path(Seq.empty, 0))
+    val traversal = minTraversal(graph, start)
+    traversal.getOrElse(target, emptyPath).path
+  }
+
+  def selectPathsByMaxCost(graph: Graph, start: String, maxCost: Int): Set[Seq[Edge]] = {
+    val traversal = minTraversal(graph, start)
+    traversal.filterKeys(v => v != start)
+    .values
+    .filter(p => p.cost <= maxCost)
+    .map(p => p.path)
+    .toSet
+  }
+
+  private def minTraversal(graph: Graph, start: String): Map[String, Path] = {
+    val paths = HashMap(start -> new Path(Seq.empty, 0))
     var waypoints = List(start)
     while (!waypoints.isEmpty) {
       for (next <- graph.outEdges(waypoints.head)) {
@@ -24,7 +37,7 @@ object GraphTool {
       }
       waypoints = waypoints.tail
     }
-    paths.getOrElse(target, emptyPath).path
+    paths.toMap
   }
 }
 

@@ -37,6 +37,16 @@ class GraphToolTest extends FunSpec {
           assert(Seq.empty[Edge].equals(GraphTool.shortestPath(sag, "D", "D")))
         }
       }
+
+      describe("max weight select algorithm") {
+        it("finds the vertices within max weight") {
+          assert(Set(Seq(e1)).equals(GraphTool.selectPathsByMaxCost(sag, "A", 1)))
+          assert(Set(Seq(e1), Seq(e2)).equals(GraphTool.selectPathsByMaxCost(sag, "A", 2)))
+          assert(Set(Seq(e1), Seq(e2)).equals(GraphTool.selectPathsByMaxCost(sag, "A", 3)))
+          assert(Set(Seq(e1), Seq(e2), Seq(e1, e3)).equals(GraphTool.selectPathsByMaxCost(sag, "A", 4)))
+          assert(Set(Seq(e1), Seq(e2), Seq(e1, e3)).equals(GraphTool.selectPathsByMaxCost(sag, "A", 100)))
+        }
+      }
     }
 
     describe("for a simple cyclic graph") {
