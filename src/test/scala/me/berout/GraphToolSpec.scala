@@ -38,8 +38,8 @@ class GraphToolTest extends FunSpec {
         }
       }
 
-      describe("max weight select algorithm") {
-        it("finds the vertices within max weight") {
+      describe("max cost select algorithm") {
+        it("finds the vertices within max cost") {
           assert(Set(Seq(e1)).equals(GraphTool.selectPathsByMaxCost(sag, "A", 1)))
           assert(Set(Seq(e1), Seq(e2)).equals(GraphTool.selectPathsByMaxCost(sag, "A", 2)))
           assert(Set(Seq(e1), Seq(e2)).equals(GraphTool.selectPathsByMaxCost(sag, "A", 3)))
@@ -88,6 +88,28 @@ class GraphToolTest extends FunSpec {
 
         it("returns empty result for non-existing path") {
           assert(Seq.empty[Edge].equals(GraphTool.shortestPath(scg, "D", "A")))
+        }
+      }
+
+      describe("max cost select algorithm") {
+        it("finds the vertices within max cost") {
+          assert(Set(Seq(f1)).equals(GraphTool.selectPathsByMaxCost(scg, "A", 1)))
+          assert(Set(Seq(f1), Seq(f1, f6)).equals(GraphTool.selectPathsByMaxCost(scg, "A", 3)))
+          assert(Set(Seq(f1), Seq(f1, f6)).equals(GraphTool.selectPathsByMaxCost(scg, "A", 4)))
+          assert(Set(Seq(f1), Seq(f1, f6), Seq(f1, f6, f7)).equals(GraphTool.selectPathsByMaxCost(scg, "A", 5)))
+          assert(Set(Seq(f1), Seq(f1, f6), Seq(f1, f6, f7)).equals(GraphTool.selectPathsByMaxCost(scg, "A", 100)))
+        }
+
+        it("finds no path for non existing start") {
+          assert(GraphTool.selectPathsByMaxCost(scg, "bar", 100).isEmpty)
+        }
+
+        it("finds no path for terminal point") {
+          assert(GraphTool.selectPathsByMaxCost(scg, "D", 100).isEmpty)
+        }
+
+        it("finds no path for null cost") {
+          assert(GraphTool.selectPathsByMaxCost(scg, "A", 0).isEmpty)
         }
       }
     }
