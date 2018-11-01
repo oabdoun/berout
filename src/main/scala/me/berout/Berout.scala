@@ -2,6 +2,7 @@ package me.berout
 
 import scala.io.StdIn
 
+/** The Berlin Routing CLI application */
 object Berout {
 
   private val routeQuery = """route (\w+) -> (\w+)""".r
