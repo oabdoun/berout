@@ -57,6 +57,13 @@ class GraphToolTest extends FunSpec {
 
         it("finds the shortest paths") {
           assert(Seq(f1, f6, f7).equals(GraphTool.shortestPath(scg, "A", "D")))
+          assert(Seq(f2).equals(GraphTool.shortestPath(scg, "B", "A")))
+          assert(Seq(f6, f7).equals(GraphTool.shortestPath(scg, "B", "D")))
+          assert(Seq.empty[Edge].equals(GraphTool.shortestPath(scg, "C", "C")))
+        }
+
+        it("returns empty result for non-existing path") {
+          assert(Seq.empty[Edge].equals(GraphTool.shortestPath(scg, "D", "A")))
         }
       }
     }
