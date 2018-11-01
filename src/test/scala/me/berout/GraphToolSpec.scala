@@ -4,18 +4,18 @@ import org.scalatest._
 
 class GraphToolTest extends FunSpec {
   describe("the graph tool") {
-    describe("shortest path algorithm") {
-      describe("for a simple acyclic graph") {
-        val sag = new Graph
-        val e1 = Edge("A", "B", 1)
-        val e2 = Edge("A", "C", 2)
-        val e3 = Edge("B", "D", 3)
-        val e4 = Edge("C", "D", 4)
-        sag.add(e1)
-        sag.add(e2)
-        sag.add(e3)
-        sag.add(e4)
+    describe("for a simple acyclic graph") {
+      val sag = new Graph
+      val e1 = Edge("A", "B", 1)
+      val e2 = Edge("A", "C", 2)
+      val e3 = Edge("B", "D", 3)
+      val e4 = Edge("C", "D", 4)
+      sag.add(e1)
+      sag.add(e2)
+      sag.add(e3)
+      sag.add(e4)
 
+      describe("shortest path algorithm") {
         it("finds the shortest paths") {
           assert(Seq(e1, e3).equals(GraphTool.shortestPath(sag, "A", "D")))
           assert(Seq(e1).equals(GraphTool.shortestPath(sag, "A", "B")))
@@ -37,24 +37,26 @@ class GraphToolTest extends FunSpec {
           assert(Seq.empty[Edge].equals(GraphTool.shortestPath(sag, "D", "D")))
         }
       }
+    }
 
-      describe("for a simple cyclic graph") {
-        val scg = new Graph
-        val f1 = Edge("A", "B", 1)
-        val f2 = Edge("B", "A", 1)
-        val f3 = Edge("A", "C", 4)
-        val f4 = Edge("C", "A", 3)
-        val f5 = Edge("C", "C", 1)
-        val f6 = Edge("B", "C", 2)
-        val f7 = Edge("C", "D", 2)
-        scg.add(f1)
-        scg.add(f2)
-        scg.add(f3)
-        scg.add(f4)
-        scg.add(f5)
-        scg.add(f6)
-        scg.add(f7)
+    describe("for a simple cyclic graph") {
+      val scg = new Graph
+      val f1 = Edge("A", "B", 1)
+      val f2 = Edge("B", "A", 1)
+      val f3 = Edge("A", "C", 4)
+      val f4 = Edge("C", "A", 3)
+      val f5 = Edge("C", "C", 1)
+      val f6 = Edge("B", "C", 2)
+      val f7 = Edge("C", "D", 2)
+      scg.add(f1)
+      scg.add(f2)
+      scg.add(f3)
+      scg.add(f4)
+      scg.add(f5)
+      scg.add(f6)
+      scg.add(f7)
 
+      describe("shortest path algorithm") {
         it("finds the shortest paths") {
           assert(Seq(f1, f6, f7).equals(GraphTool.shortestPath(scg, "A", "D")))
           assert(Seq(f2).equals(GraphTool.shortestPath(scg, "B", "A")))
