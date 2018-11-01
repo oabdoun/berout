@@ -38,6 +38,11 @@ class BeroutSpec extends FunSpec {
         val out = runApp("nearby_one.txt")
         assert(out == "C: 70, D: 120, B: 130\n")
       }
+
+      it("outputs the results for route and nearby") {
+        val out = runApp("route_nearby.txt")
+        assert(out == "A -> C -> B: 130\nC: 70, D: 120, B: 130\n")
+      }
     }
   }
 }
