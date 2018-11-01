@@ -23,6 +23,7 @@ object Berout {
     var line: String = null
     while ({line = StdIn.readLine; line != null}) {
       line match {
+
         case routeQuery(start, target) => {
           // compute shortest path
           val result = GraphTool.shortestPath(network, start, target)
@@ -42,8 +43,25 @@ object Berout {
           }
           println(s": ${total}")
         }
+
         case nearbyQuery(start, max) => {
+          // select paths by max cost
+          val result = GraphTool.selectPathsByMaxCost(network, start, max.toInt)
+
+          // compute cost for each path
+          var nearby = new scala.collection.mutable.HashMap[String, Int]
+          for (path <- result) {
+            val cost = path.map(_.weight).foldLeft(0)(_ + _)
+            nearby += (path.last.destination -> cost)
+          }
+
+          // output result sorted by cost
+          val dests = nearby.toSeq
+          .sortWith((a, b) => a._2 < b._2)
+          .map(n => s"${n._1}: ${n._2}")
+          println(dests.mkString(", "))
         }
+
       }
     }
   }

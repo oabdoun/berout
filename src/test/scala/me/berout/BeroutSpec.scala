@@ -33,6 +33,11 @@ class BeroutSpec extends FunSpec {
         assert(runApp("route_nopath.txt") == "Error: No route from A to D\n")
         assert(runApp("route_novertex.txt") == "Error: No route from Foo to Bar\n")
       }
+
+      it("outputs the nearby stations") {
+        val out = runApp("nearby_one.txt")
+        assert(out == "C: 70, D: 120, B: 130\n")
+      }
     }
   }
 }
