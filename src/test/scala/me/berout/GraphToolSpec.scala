@@ -46,6 +46,18 @@ class GraphToolTest extends FunSpec {
           assert(Set(Seq(e1), Seq(e2), Seq(e1, e3)).equals(GraphTool.selectPathsByMaxCost(sag, "A", 4)))
           assert(Set(Seq(e1), Seq(e2), Seq(e1, e3)).equals(GraphTool.selectPathsByMaxCost(sag, "A", 100)))
         }
+
+        it("finds no path for non existing start") {
+          assert(GraphTool.selectPathsByMaxCost(sag, "foo", 100).isEmpty)
+        }
+
+        it("finds no path for terminal point") {
+          assert(GraphTool.selectPathsByMaxCost(sag, "D", 100).isEmpty)
+        }
+
+        it("finds no path for null cost") {
+          assert(GraphTool.selectPathsByMaxCost(sag, "A", 0).isEmpty)
+        }
       }
     }
 
